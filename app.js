@@ -5,6 +5,7 @@ const { Telegraf } = require('telegraf')
 const status = require('./status')
 
 let job
+let status_job = false
 
 const rodar = () => {
     const bot = new Telegraf(process.env.BOT_TOKEN)
@@ -12,7 +13,7 @@ const rodar = () => {
     bot.help((ctx) => ctx.reply(`Comandos:
         /ligar - liga e desliga o nonitoramento do site`
     ))
-    
+
     bot.on('sticker', (ctx) => ctx.reply('👍'))
 
     bot.hears('Oi', (ctx) => ctx.reply('E ai?, carinha que mora logo ali!'))
@@ -22,12 +23,20 @@ const rodar = () => {
         ctx.reply('Pong!')
     })
 
+    bot.hears(/ajuda/i, ctx => {
+        ctx.reply(`comandos:
+    /ligar - ligar o bot
+    /desligar - delisga o bot
+    /status - status do ligado o desligado`)
+    })
+
     bot.command('ligar', async (ctx) => {
         try {
-            job = agendar.scheduleJob('* * * * * *', ()=>{
+            job = agendar.scheduleJob('* * * * * *', async () => {
                 console.log("rodando ...");
+                status_job = true
                 await ctx.reply(`rastreador ligado...`)
-              })
+            })
         } catch (error) {
             console.error(error)
         }
@@ -35,11 +44,26 @@ const rodar = () => {
 
     bot.command('desligar', async (ctx) => {
         try {
-            await ctx.reply(`rastreador desligado...`)
+            if (job) {
+                status_job = false
+                await ctx.reply(`rastreador desligado...`)
+                job.cancel()
+                
+            }
         } catch (error) {
             console.error(error)
         }
     })
+
+    bot.command('status', async (ctx) => {
+        if (status_job){
+            await ctx.reply('rastreador esta ligado')
+        }else{
+            await ctx.reply('rastreador esta desligado')
+        }
+    })
+
+
 
     bot.launch()
 
