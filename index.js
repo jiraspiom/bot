@@ -19,6 +19,6 @@ console.log("api ira acessar ela mesmo aqui.")
 
 express()
   .get('/', (req, res) => res.send('<div id="nome">rodando o bot ...</div>'))
-  .get('/api', (req, res)=> res.json({bot: true}))
+  .get('/api', (req, res)=> res.json({bot: "agora"}))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
