@@ -17,7 +17,6 @@ bot.hears(/ping/i, ctx => {
 })
 
 
-
 bot.command('ligar', async (ctx) => {
     try {
         await ctx.reply(`ligado...`)
