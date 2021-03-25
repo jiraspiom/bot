@@ -1,11 +1,12 @@
 require('dotenv/config');
+const agendar = require('node-schedule')
 
 const { Telegraf } = require('telegraf')
 const status = require('./status')
 
+let job
+
 const rodar = () => {
-
-
     const bot = new Telegraf(process.env.BOT_TOKEN)
     bot.start((ctx) => ctx.reply('Welcome'))
     bot.help((ctx) => ctx.reply(`Comandos:
@@ -21,10 +22,20 @@ const rodar = () => {
         ctx.reply('Pong!')
     })
 
-
     bot.command('ligar', async (ctx) => {
         try {
-            await ctx.reply(`ligado...`)
+            job = agendar.scheduleJob('* * * * * *', ()=>{
+                console.log("rodando ...");
+                await ctx.reply(`rastreador ligado...`)
+              })
+        } catch (error) {
+            console.error(error)
+        }
+    })
+
+    bot.command('desligar', async (ctx) => {
+        try {
+            await ctx.reply(`rastreador desligado...`)
         } catch (error) {
             console.error(error)
         }
