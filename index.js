@@ -1,33 +1,15 @@
-const rodar = require('./app')
+const rodarBotTelegram = require('./app')
+const elamesmo = require('./acessaSiteHeroku')
 const express = require('express')
-
-const status = require('./status')
-
 
 const path = require('path')
 const PORT = process.env.PORT || 5000
 
+//! Para rodar o boot @*******
+rodarBotTelegram()
 
-//! Para rodar o boot
-// rodar()
-
-const agendar = require('node-schedule')
-let job;
-job = agendar.scheduleJob('20 * * * * *', async () => {
-  try {
-    console.log("rodando ... ...");
-    const response = await status()
-
-    if (response.status == 200) {
-      console.log("ok", Date())
-    } else {
-      console.log("nao ok")
-    }
-  } catch (error) {
-    console.log(error)
-  }
-
-})
+//acessando ela mesmo...
+elamesmo()
 
 console.log("api ira acessar ela mesmo aqui.")
 

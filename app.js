@@ -1,8 +1,12 @@
 require('dotenv/config');
-const agendar = require('node-schedule')
 
+const agendar = require('node-schedule')
+const puppeteer = require('puppeteer')
 const { Telegraf } = require('telegraf')
+
 const status = require('./status')
+
+//* document.querySelector('[class="ml1-SoccerClock_Clock "]').innerText
 
 let job
 let status_job = false
@@ -10,9 +14,7 @@ let status_job = false
 const rodar = () => {
     const bot = new Telegraf(process.env.BOT_TOKEN)
     bot.start((ctx) => ctx.reply('Welcome'))
-    bot.help((ctx) => ctx.reply(`Comandos:
-        /ligar - liga e desliga o nonitoramento do site`
-    ))
+    bot.help((ctx) => ctx.reply(`Digite "Ajuda" para visualizar os comandos`))
 
     bot.on('sticker', (ctx) => ctx.reply('👍'))
 
@@ -35,6 +37,7 @@ const rodar = () => {
             job = agendar.scheduleJob('* * * * * *', async () => {
                 console.log("rodando ...");
                 status_job = true
+                funcaoPegar()
                 await ctx.reply(`rastreador ligado...`)
             })
         } catch (error) {
@@ -62,8 +65,6 @@ const rodar = () => {
             await ctx.reply('rastreador esta desligado')
         }
     })
-
-
 
     bot.launch()
 
@@ -103,6 +104,19 @@ const rodar = () => {
     // }
 
     // startBot()
+}
+
+const funcaoPegar = async () =>{
+    const brower = await puppeteer.launch();
+    const page = await brower.newPage();
+    await page.goto('https://www.bet365.com/#/IP/EV15585979992C1');
+  
+    const pageContent = await page.evaluate(()=>{
+        return {
+            teste: document.querySelector('[class="ml1-SoccerClock_Clock "]').innerText
+        }
+    })
+    console.log('pageCont:', pageContent)
 }
 
 module.exports = rodar
