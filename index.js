@@ -9,11 +9,11 @@ const PORT = process.env.PORT || 5000
 
 
 //! Para rodar o boot
-rodar()
+// rodar()
 
 const agendar = require('node-schedule')
 let job;
-job = agendar.scheduleJob('1 * * * * *', async () => {
+job = agendar.scheduleJob('20 * * * * *', async () => {
   try {
     console.log("rodando ... ...");
     const response = await status()
