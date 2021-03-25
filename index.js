@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 5000
 
 
 //! Para rodar o boot
-rodar()
+// rodar()
 
 express()
   .get('/', (req, res) => res.send('rodando o bot ...'))
