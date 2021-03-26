@@ -8,8 +8,9 @@ console.log(nome("errouuufeiooo"))
 //     console.log(v);  // exibe 60 depois de 2 segundos.
 // });
 
+
 nome(1).then((x)=>{
-    console.log(x)
+    console.log(`valor de x ${x} \nagora vamos`)
 }).catch((erro)=>{
     console.log("erroukkkk");
     console.log(erro)
