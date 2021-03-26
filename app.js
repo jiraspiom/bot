@@ -31,8 +31,8 @@ const rodar = () => {
 
 	bot.hears(/dolar/i, async ctx => {
 		await funcaoPegarValorDolar().then(x => {
-			// ctx.reply('Bot de moeda 🤖💰')
-		await ctx.reply(`${x.texto}`)
+		ctx.reply('Bot de moeda 🤖💰')
+		ctx.reply(`${x.texto}`)
 		}).catch(erro =>{
 			console.log('erro ao buscar o valor do dolar')
 		})
