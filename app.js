@@ -34,7 +34,8 @@ const rodar = () => {
 		ctx.reply('Bot de moeda 🤖💰')
 		ctx.reply(`${x.texto}`)
 		}).catch(erro =>{
-			console.log('erro ao buscar o valor do dolar')
+			console.log('erro ao buscar o valor do dolar ---------')
+			console.log(erro)
 		})
 	})
 

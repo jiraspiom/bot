@@ -6,7 +6,7 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 
 //! Para rodar o boot @*******
-rodarBotTelegram()
+// rodarBotTelegram()
 
 //acessando ela mesmo...
 acessaSiteHeroku()
