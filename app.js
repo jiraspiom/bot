@@ -47,6 +47,9 @@ const rodar = () => {
 				funcaoPegarValorDolar().then(x => {
 					ctx.reply(`desligando rastreado ...`)
 					ctx.reply(`valor do dolar está R$... \n ${x.resultado}`)
+				}).catch(erro =>{
+					console.log("erro ao ligar o rastreador");
+					console.log(erro)
 				})
 			})
 		} catch (error) {
