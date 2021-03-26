@@ -1,5 +1,5 @@
 const rodarBotTelegram = require('./app')
-const elamesmo = require('./acessaSiteHeroku')
+const acessaSiteHeroku = require('./acessaSiteHeroku')
 const express = require('express')
 
 const path = require('path')
@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000
 rodarBotTelegram()
 
 //acessando ela mesmo...
-elamesmo()
+acessaSiteHeroku()
 
 console.log("api ira acessar ela mesmo aqui.")
 

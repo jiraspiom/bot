@@ -4,7 +4,7 @@ const agendar = require('node-schedule')
 const puppeteer = require('puppeteer')
 const { Telegraf } = require('telegraf')
 
-const status = require('./status')
+const status = require('./status_site')
 
 //* document.querySelector('[class="ml1-SoccerClock_Clock "]').innerText
 
@@ -50,8 +50,7 @@ const rodar = () => {
             if (job) {
                 status_job = false
                 await ctx.reply(`rastreador desligado...`)
-                job.cancel()
-                
+                job.cancel()    
             }
         } catch (error) {
             console.error(error)
@@ -72,8 +71,6 @@ const rodar = () => {
     process.once('SIGINT', () => bot.stop('SIGINT'))
     process.once('SIGTERM', () => bot.stop('SIGTERM'))
 
-
-    // bot.start((ctx) => ctx.reply("Hello world"))
 
 
     // bot.command('status', async (ctx) => {
@@ -116,7 +113,7 @@ const funcaoPegar = async () =>{
             teste: document.querySelector('[class="ml1-SoccerClock_Clock "]').innerText
         }
     })
-    console.log('pageCont:', pageContent)
+    console.log('pageConteudo:', pageContent)
 }
 
 module.exports = rodar

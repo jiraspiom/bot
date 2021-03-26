@@ -9,7 +9,7 @@ function funcaoGerar() {
 
     rule.minute = [numero1, numero2, numero3]
 
-    console.log('gerandoo o tempo que sera usado para acessar o site...')
+    console.log(`gerado o tempo que sera usado para acessar o site... ${numero1} ${numero2} ${numero3}`)
     return rule
 }
 
