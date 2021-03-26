@@ -3,7 +3,7 @@ require('dotenv/config');
 const agendar = require('node-schedule')
 const { Telegraf } = require('telegraf')
 
-const funcaoPegarValorDolar = require('./scripts/pegarValorDolar')
+const google = require('./scripts/googleValorDolar')
 
 let job
 let status_job = false
@@ -30,12 +30,10 @@ const rodar = () => {
 	})
 
 	bot.hears(/dolar/i, async ctx => {
-		await funcaoPegarValorDolar().then(x => {
-		ctx.reply('Bot de moeda 🤖💰')
-		ctx.reply(`${x.texto}`)
-		}).catch(erro =>{
-			console.log('erro ao buscar o valor do dolar ---------')
-			console.log(erro)
+		await google.then(valor => {
+			ctx.reply(valor)
+		}).catch(erro => {
+			console.log('erro ao bucar a funcao dolar', erro)
 		})
 	})
 
@@ -44,10 +42,9 @@ const rodar = () => {
 			job = agendar.scheduleJob('* * * * * *', async () => {
 				console.log("rodando ...", Date());
 				status_job = true
-				funcaoPegarValorDolar().then(x => {
-					ctx.reply(`desligando rastreado ...`)
-					ctx.reply(`valor do dolar está R$... \n ${x.resultado}`)
-				}).catch(erro =>{
+				await google.then(valor => {
+					ctx.reply(`rastreado ligado - R$ \n ${valor}`)
+				}).catch(erro => {
 					console.log("erro ao ligar o rastreador");
 					console.log(erro)
 				})
