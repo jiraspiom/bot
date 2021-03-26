@@ -1,12 +1,9 @@
 require('dotenv/config');
 
 const agendar = require('node-schedule')
-const puppeteer = require('puppeteer')
 const { Telegraf } = require('telegraf')
 
-const status = require('./status_site')
-
-//* document.querySelector('[class="ml1-SoccerClock_Clock "]').innerText
+const funcaoPegarValorDolar = require('./scripts/pegarValorDolar')
 
 let job
 let status_job = false
@@ -32,9 +29,12 @@ const rodar = () => {
     /status - status do ligado o desligado`)
 	})
 
-	bot.hears(/dolar/i, ctx => {
-		funcaoPegarValorDolar().then(x => {
-			ctx.reply(`${x.texto}`)
+	bot.hears(/dolar/i, async ctx => {
+		await funcaoPegarValorDolar().then(x => {
+			// ctx.reply('Bot de moeda 🤖💰')
+		await ctx.reply(`${x.texto}`)
+		}).catch(erro =>{
+			console.log('erro ao buscar o valor do dolar')
 		})
 	})
 
@@ -44,6 +44,7 @@ const rodar = () => {
 				console.log("rodando ...", Date());
 				status_job = true
 				funcaoPegarValorDolar().then(x => {
+					ctx.reply(`desligando rastreado ...`)
 					ctx.reply(`valor do dolar está R$... \n ${x.resultado}`)
 				})
 			})
@@ -108,27 +109,6 @@ const rodar = () => {
 	// }
 
 	// startBot()
-}
-
-const funcaoPegarValorDolar = async () => {
-	const browser = await puppeteer.launch({ headless: true });
-	const page = await browser.newPage();
-	// const moedaBase = readlineSync.question('Informe uma moeda base: ') || 'dolar';
-	const moedaBase = 'dolar';
-	// const moedaFinal = readlineSync.question('Informe uma moeda desejada:') || 'real';
-	const moedaFinal = 'real';
-
-	const qualquerUrl = `https://www.google.com/search?q=${moedaBase}+para+${moedaFinal}&oq=${moedaBase}+para+${moedaFinal}&aqs=chrome.0.69i59j0l7.1726j0j4&sourceid=chrome&ie=UTF-8`;
-	await page.goto(qualquerUrl);
-
-	const resultado = await page.evaluate(() => {
-		return document.querySelector('.a61j6.vk_gy.vk_sh.Hg3mWc').value;
-	});
-
-	let texto = `O valor de 1 ${moedaBase} em ${moedaFinal} é ${resultado}`
-
-	await browser.close(texto);
-	return {resultado, texto}
 }
 
 module.exports = rodar
