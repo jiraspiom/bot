@@ -37,8 +37,9 @@ const rodar = () => {
             job = agendar.scheduleJob('* * * * * *', async () => {
                 console.log("rodando ...");
                 status_job = true
-                funcaoPegar()
-                await ctx.reply(`rastreador ligado...`)
+                funcaoPegar().then(x =>{
+                    await ctx.reply(`rastreador ligado... ${x}`)
+                })
             })
         } catch (error) {
             console.error(error)
