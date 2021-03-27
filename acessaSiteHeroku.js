@@ -11,6 +11,10 @@ const sites = [
 	{
 		nome: 'pomodoro',
 		url: 'https://anfinance.herokuapp.com/'
+	},
+	{
+		nome: 'tellmelu',
+		url: 'https://tellmelu.herokuapp.com/'
 	}
 ]
 
