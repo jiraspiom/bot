@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer')
 
-async function PegarValorDolar(){
+async function PegarValorDolar() {
 	const browser = await puppeteer.launch({ headless: true });
 	const page = await browser.newPage();
 	// const moedaBase = readlineSync.question('Informe uma moeda base: ') || 'dolar';
@@ -18,8 +18,10 @@ async function PegarValorDolar(){
 	let texto = `O valor de 1 ${moedaBase} em ${moedaFinal} é ${resultado}`
 
 	await browser.close(texto);
+
 	console.log('rodado - PegarValorDolar')
-	return {resultado, texto}
+	
+	return { resultado, texto }
 }
 
 module.exports = PegarValorDolar
