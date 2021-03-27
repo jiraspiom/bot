@@ -88,7 +88,7 @@ const rodar = () => {
 	})
 
 	bot.hears(/euro/i, async ctx=>{
-		await google('euro').then(valor => {
+		await google('bitcon').then(valor => {
 			ctx.reply(valor.texto)
 		}).catch(erro =>{
 			console.log('erro ao buscar a funcao euro', erro)
