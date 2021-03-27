@@ -30,7 +30,7 @@ const rodar = () => {
 	})
 
 	bot.hears(/dolar/i, async ctx => {
-		await google().then(valor => {
+		await google('dolar').then(valor => {
 			ctx.reply(valor)
 		}).catch(erro => {
 			console.log('erro ao buscar a funcao dolar', erro)
@@ -38,7 +38,7 @@ const rodar = () => {
 	})
 
 	bot.hears(/libra/i, async ctx=>{
-		await google('dolar').then(valor => {
+		await google('libra').then(valor => {
 			ctx.reply(valor.texto)
 		}).catch(erro =>{
 			console.log('erro ao buscar a funcao euro', erro)
