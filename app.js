@@ -37,7 +37,7 @@ const rodar = () => {
 			job = agendar.scheduleJob('* * * * * *', async () => {
 				console.log("rodando rastreio de dolar...", Date());
 				status_job = true
-				await google('dolar').then(valor => {
+				await google('bitcon').then(valor => {
 					ctx.reply(`rastreado ligado - R$ \n ${valor.resultado}`)
 				}).catch(erro => {
 					console.log("erro ao ligar o rastreador");
@@ -88,7 +88,7 @@ const rodar = () => {
 	})
 
 	bot.hears(/euro/i, async ctx=>{
-		await google('bitcon').then(valor => {
+		await google('euro').then(valor => {
 			ctx.reply(valor.texto)
 		}).catch(erro =>{
 			console.log('erro ao buscar a funcao euro', erro)
