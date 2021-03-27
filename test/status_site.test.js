@@ -1,7 +1,7 @@
 
 const status_site = require('../status_site'); //1
 const acessarSiteHeroku = require('../acessaSiteHeroku'); //2
-const funcaoPegarValorDolar = require('../scripts/pegarValorDolar_puppeteer'); //3
+const funcaoPegarValorDolar = require('../scripts/googleValorDolar'); //3
 
 // 1
 // let url = 'https://bot-jiraspiom.herokuapp.com/'
@@ -12,11 +12,18 @@ const funcaoPegarValorDolar = require('../scripts/pegarValorDolar_puppeteer'); /
 // acessarSiteHeroku()
 
 // 3
+// async function valor(){
+//     await funcaoPegarValorDolar().then(x => {
+//         console.log(x.resultado);
+//     })
+// }
+// valor()
 
+
+//4
 async function valor(){
-    await funcaoPegarValorDolar().then(x => {
-        console.log(x.resultado);
+    await funcaoPegarValorDolar('dolar').then(x => {
+        console.log(x.texto);
     })
 }
-
 valor()
