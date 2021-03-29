@@ -7,6 +7,7 @@ const google = require('./scripts/googleValorDolar')
 
 let job
 let status_job = false
+let valor_atual 
 
 const rodar = () => {
 	const bot = new Telegraf(process.env.BOT_TOKEN)
@@ -38,6 +39,7 @@ const rodar = () => {
 				console.log("rodando rastreio de dolar...", Date());
 				status_job = true
 				await google('bitcon').then(valor => {
+					valor_atual = valor.resultado
 					ctx.reply(`rastreado ligado - R$ \n ${valor.resultado}`)
 				}).catch(erro => {
 					console.log("erro ao ligar o rastreador");
@@ -52,6 +54,10 @@ const rodar = () => {
 	bot.command('desligar', async (ctx) => {
 		try {
 			if (job) {
+				status_job = false
+				await ctx.reply(`desligando rastreado ...`)
+				job.cancel()
+			} else {
 				status_job = false
 				await ctx.reply(`desligando rastreado ...`)
 				job.cancel()
