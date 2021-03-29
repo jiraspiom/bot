@@ -53,15 +53,11 @@ const rodar = () => {
 
 	bot.command('desligar', async (ctx) => {
 		try {
-			if (job) {
+			// if (job) {
 				status_job = false
 				await ctx.reply(`desligando rastreado ...`)
 				job.cancel()
-			} else {
-				status_job = false
-				await ctx.reply(`desligando rastreado ...`)
-				job.cancel()
-			}
+			// }
 		} catch (error) {
 			console.error(error)
 		}
